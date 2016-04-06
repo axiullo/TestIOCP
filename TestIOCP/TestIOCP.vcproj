@@ -40,6 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				PreprocessorDefinitions="DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -193,6 +194,10 @@
 			</File>
 			<File
 				RelativePath=".\MyLock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Utils.h"
 				>
 			</File>
 		</Filter>

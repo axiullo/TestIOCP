@@ -8,12 +8,13 @@
 #include "IOCPNet.h"
 #include <stdio.h>
 #include <algorithm>
+#include "Utils.h"
 
 #include "MyLock.h"
 
 #pragma warning(disable:4996) //全部关掉
 
-DWORD WINAPI MainThread(void* pParam);
+DWORD WINAPI AcceptThread(void* pParam);
 DWORD WINAPI WorkThread(void* pParam);
 
 const int MAX_CONNECT_NUM = 10;
@@ -54,12 +55,14 @@ int IOCPNet::Start( int nPort, const char* pAddress )
 		return -1;
 	}
 
+	m_bRun = true;
 	/** 创建工作线程 */ 
 	SYSTEM_INFO sys;
 	GetSystemInfo(&sys);
 
 	int NumberOfConcurrentThreads = sys.dwNumberOfProcessors * 2;
 	m_nThreadCloseNum = NumberOfConcurrentThreads;
+	m_nWorkThreadNum = NumberOfConcurrentThreads;
 
 	for (int n = 0; n < NumberOfConcurrentThreads; ++n)
 	{
@@ -110,7 +113,7 @@ int IOCPNet::Start( int nPort, const char* pAddress )
 		return -1;
 	}
 
-	HANDLE hMain = CreateThread(NULL, 0, MainThread, this, 0, 0);
+	HANDLE hMain = CreateThread(NULL, 0, AcceptThread, this, 0, 0);
 	CloseHandle(hMain);
 
 	return 0;
@@ -118,9 +121,20 @@ int IOCPNet::Start( int nPort, const char* pAddress )
 
 int IOCPNet::End()
 {
-	PostQueuedCompletionStatus(m_CompletePort, 1, 0, NULL);
-	ClearAllClientSocket();
+	m_bRun = false;
 	WSACleanup();
+
+	for(int i = 0; i < m_nWorkThreadNum; ++i)
+	{
+		PostQueuedCompletionStatus(m_CompletePort, 1, 0, NULL);
+	}
+
+	ClearAllClientSocket();	
+
+	while(m_nThreadCloseNum > 0)
+	{
+		//printf("cur close num %d\n", m_nThreadCloseNum);
+	}
 
 	return 0;
 }
@@ -206,9 +220,15 @@ DWORD IOCPNet::WSAAcceptProcess()
 
 		int acceptSocket = WSAAccept(pThis->m_ServerSocket, (sockaddr*)&clientAddr, &len, NULL, NULL);
 
+		if (!m_bRun)
+		{
+			return;
+		}
+
 		if(acceptSocket == INVALID_SOCKET)
 		{
 			printf("create socket fail %d \n", WSAGetLastError());
+			/*return -1;*/
 			continue;
 		}
 
@@ -382,10 +402,7 @@ DWORD WINAPI WorkThread(void* pParam)
 
 			char out[1024];
 			sprintf(out, "GetQueuedCompletionStatus  true  threadID = %d transferredSize = %d socket = %d \n", GetCurrentThreadId(), nTransferredSize, hAccept->acceptSocket);
-			OutputDebugString(out);
-
-			printf("GetQueuedCompletionStatus  true  threadID = %d\n", GetCurrentThreadId());
-			printf("%s \n", inet_ntoa(hAccept->ClientAddr.sin_addr));
+			DebugOut(out);
 
 			pData = CONTAINING_RECORD(lpOverlapped, IOData, overLapped);
 
@@ -412,7 +429,7 @@ DWORD WINAPI WorkThread(void* pParam)
 	return 0;
 }
 
-DWORD WINAPI MainThread( void* pParam )
+DWORD WINAPI AcceptThread( void* pParam )
 {
 	IOCPNet* pThis = (IOCPNet*)pParam;
 

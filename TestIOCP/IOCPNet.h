@@ -58,4 +58,6 @@ public:
 
 	int m_nConnectNum;
 	int m_nThreadCloseNum;
+	int m_nWorkThreadNum;
+	bool m_bRun;
 };

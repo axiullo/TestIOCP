@@ -30,11 +30,6 @@ int main()
 		}
 	}
 
-	while (net.GetThreadCloseNum() != 0)
-	{
-
-	}
-
 	printf("%d \n", net.GetThreadCloseNum());
 
 	//AcceptExExample();
