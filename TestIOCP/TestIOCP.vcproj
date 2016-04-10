@@ -174,10 +174,6 @@
 				RelativePath=".\MsgMgr.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\MyLock.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -193,10 +189,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\MyLock.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Utils.h"
 				>
 			</File>
@@ -208,18 +200,18 @@
 			>
 		</Filter>
 		<Filter
-			Name="net"
+			Name="Iocp"
 			>
 			<File
-				RelativePath=".\IOCPDefine.h"
+				RelativePath=".\iocp\IOCPDefine.h"
 				>
 			</File>
 			<File
-				RelativePath=".\IOCPNet.cpp"
+				RelativePath=".\iocp\IOCPNet.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IOCPNet.h"
+				RelativePath=".\iocp\IOCPNet.h"
 				>
 			</File>
 		</Filter>
@@ -239,11 +231,19 @@
 			Name="Obj"
 			>
 			<File
-				RelativePath=".\PlayerObj.cpp"
+				RelativePath=".\Obj\MyLock.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\PlayerObj.h"
+				RelativePath=".\Obj\MyLock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Obj\PlayerObj.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Obj\PlayerObj.h"
 				>
 			</File>
 		</Filter>

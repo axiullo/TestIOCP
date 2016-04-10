@@ -8,9 +8,9 @@
 #include "IOCPNet.h"
 #include <stdio.h>
 #include <algorithm>
-#include "Utils.h"
+#include "../Utils.h"
 
-#include "MyLock.h"
+#include "../Obj/MyLock.h"
 
 #pragma warning(disable:4996) //È«²¿¹Øµô
 
@@ -222,7 +222,7 @@ DWORD IOCPNet::WSAAcceptProcess()
 
 		if (!m_bRun)
 		{
-			return;
+			return 0;
 		}
 
 		if(acceptSocket == INVALID_SOCKET)
@@ -374,8 +374,10 @@ void IOCPNet::ProcessIOData( SOCKET s, IOData* pData )
 void IOCPNet::ReduceThreadCloseNum()
 {
 	MyLock lock;
+	lock.Lock();
 	printf("cur close num %d\n", m_nThreadCloseNum);
 	--m_nThreadCloseNum;	
+	lock.UnLock();
 }
 
 DWORD WINAPI WorkThread(void* pParam)
