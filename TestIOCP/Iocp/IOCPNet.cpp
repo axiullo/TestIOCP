@@ -6,11 +6,12 @@
 //////////////////////////////////////////////////////////////////////////
 
 #include "IOCPNet.h"
+#include "Utils.h"
+#include "../Obj/MyLock.h"
+#include "GlogHelper.h"
+
 #include <stdio.h>
 #include <algorithm>
-#include "../Utils.h"
-
-#include "../Obj/MyLock.h"
 
 #pragma warning(disable:4996) //È«²¿¹Øµô
 
@@ -76,7 +77,6 @@ int IOCPNet::Start( int nPort, const char* pAddress )
 		}
 
 		printf("create workerthread id = %d \n", nThreadID);
-
 		CloseHandle(h);
 	}
 

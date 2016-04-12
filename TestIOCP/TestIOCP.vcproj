@@ -40,10 +40,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="DEBUG"
+				AdditionalIncludeDirectories="./;./Utils;./Obj"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -110,6 +111,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="./;./Obj;./Utils;./glog"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -188,10 +190,6 @@
 				RelativePath=".\MsgMgr.h"
 				>
 			</File>
-			<File
-				RelativePath=".\Utils.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="资源文件"
@@ -231,6 +229,14 @@
 			Name="Obj"
 			>
 			<File
+				RelativePath=".\Obj\GlogHelper.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Obj\GlogHelper.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Obj\MyLock.cpp"
 				>
 			</File>
@@ -244,6 +250,42 @@
 			</File>
 			<File
 				RelativePath=".\Obj\PlayerObj.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="glog"
+			>
+			<File
+				RelativePath=".\glog\log_severity.h"
+				>
+			</File>
+			<File
+				RelativePath=".\glog\logging.h"
+				>
+			</File>
+			<File
+				RelativePath=".\glog\raw_logging.h"
+				>
+			</File>
+			<File
+				RelativePath=".\glog\stl_logging.h"
+				>
+			</File>
+			<File
+				RelativePath=".\glog\vlog_is_on.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="utlils"
+			>
+			<File
+				RelativePath=".\Utils\Utils.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Utils\Utils.h"
 				>
 			</File>
 		</Filter>
