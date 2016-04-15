@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "IOCPDefine.h"
+#include "MyLock.h"
 
 using namespace std;
 
@@ -60,4 +61,6 @@ public:
 	int m_nThreadCloseNum;
 	int m_nWorkThreadNum;
 	bool m_bRun;
+
+	MyLock m_lock;
 };

@@ -7,7 +7,6 @@
 
 #include "IOCPNet.h"
 #include "Utils.h"
-#include "../Obj/MyLock.h"
 #include "GlogHelper.h"
 
 #include <stdio.h>
@@ -373,11 +372,10 @@ void IOCPNet::ProcessIOData( SOCKET s, IOData* pData )
 
 void IOCPNet::ReduceThreadCloseNum()
 {
-	MyLock lock;
-	lock.Lock();
+	m_lock.Lock();
 	printf("cur close num %d\n", m_nThreadCloseNum);
-	--m_nThreadCloseNum;	
-	lock.UnLock();
+	--m_nThreadCloseNum;		
+	m_lock.UnLock();
 }
 
 DWORD WINAPI WorkThread(void* pParam)

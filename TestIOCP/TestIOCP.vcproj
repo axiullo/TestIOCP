@@ -252,6 +252,14 @@
 				RelativePath=".\Obj\PlayerObj.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Obj\ProcessNetData.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Obj\ProcessNetData.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="glog"

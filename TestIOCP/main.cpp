@@ -6,12 +6,14 @@
 
 #include "Utils.h"
 #include "GlogHelper.h"
+#include "ProcessNetData.h"
 
 #pragma  comment(lib, "ws2_32.lib")
 
 int main()
 {
 	GlogHelper::GetInstance();
+	ProcessNetData::ProcessNetDataIns();
 
 	IOCPNet net;
 	if(net.Start(10086, "127.0.0.1") < 0)

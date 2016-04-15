@@ -19,16 +19,19 @@ using std::endl;
 
 void FatalFunc();
 
+//因为单线程使用，所以单例不考虑多线程情况
 class GlogHelper
 {
 public:
-	static GlogHelper* GetInstance();
+	static GlogHelper& GetInstance();
+	~GlogHelper();
 
 	void Test();
 
 private:
 	GlogHelper();
-	~GlogHelper();
+	GlogHelper(const GlogHelper&);
+	GlogHelper& operator = (const GlogHelper&);
 
 private:
 	void SetLogDir();

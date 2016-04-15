@@ -8,7 +8,6 @@ FLAGS_max_log_size    每个日志文件最大大小（MB级别）
 FLAGS_minloglevel     输出日志的最小级别，即高于等于该级别的日志都将输出。
 ****************************/
 
-
 GlogHelper::GlogHelper()
 {
 	m_strLogDir = "";
@@ -36,13 +35,13 @@ GlogHelper::GlogHelper()
 
 	//google::InstallFailureFunction(&FatalFunc);
 
-	Test();
+	//Test();
 }
 
-GlogHelper* GlogHelper::GetInstance()
+GlogHelper& GlogHelper::GetInstance()
 {
 	static GlogHelper ins;
-	return &ins;
+	return ins;
 }
 
 void GlogHelper::Test()
